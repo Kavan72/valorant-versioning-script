@@ -108,7 +108,7 @@ def main():
             check_update_for_region(configuration)
 
         shutil.rmtree(TEMP_DIR)
-        time.sleep(15 * 60)
+        time.sleep(30 * 60)
 
         print(f"Last checked on:- {datetime.datetime.now()}")
 
