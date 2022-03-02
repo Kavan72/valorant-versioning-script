@@ -3,6 +3,7 @@ import time
 import json
 import shutil
 import datetime
+import traceback
 
 import requests
 import subprocess
@@ -76,7 +77,7 @@ def check_update_for_region(region_data):
                 "4"
             ], timeout=60)
     except:
-        return shutil.rmtree(TEMP_DIR)
+        return print(traceback.format_exc())
     else:
 
         version_data = get_valorant_version(f"{TEMP_DIR}/ShooterGame/Binaries/Win64/VALORANT-Win64-Shipping.exe")
@@ -98,9 +99,11 @@ def main():
     try:
         Repo.clone_from(REMOTE_URL, REPO_DIR)
     except:
-        pass
+        return print(traceback.format_exc())
 
     while True:
+
+        os.makedirs(TEMP_DIR, exist_ok=True)
 
         valorant_release = requests.get("https://clientconfig.rpg.riotgames.com/api/v1/config/public?namespace=keystone.products.valorant.patchlines", timeout=1)
 
