@@ -23,6 +23,8 @@ GITHUB_EMAIL = os.environ['GITHUB_EMAIL']
 GITHUB_PASSWORD = os.environ['GITHUB_PASSWORD']
 GITHUB_REPOSITORY_NAME = os.environ['GITHUB_REPOSITORY_NAME']
 
+TIMEOUT_IN_MIN = int(os.environ.get('TIMEOUT_IN_MIN', '30')) * 60
+
 AUTHOR = Actor(GITHUB_USERNAME, GITHUB_EMAIL)
 REMOTE_URL = f"https://{GITHUB_USERNAME}:{GITHUB_PASSWORD}@github.com/{GITHUB_USERNAME}/{GITHUB_REPOSITORY_NAME}.git"
 
@@ -111,7 +113,7 @@ def main():
             check_update_for_region(configuration)
 
         shutil.rmtree(TEMP_DIR)
-        time.sleep(30 * 60)
+        time.sleep(TIMEOUT_IN_MIN)
 
         print(f"Last checked on:- {datetime.datetime.now()}")
 
